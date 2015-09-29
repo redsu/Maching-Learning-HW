@@ -63,7 +63,7 @@ int main(){
 			//sign = result > 0 ? 1 : -1;
 			if(result * data[list[i]][5] < 0){
 				for(j=0; j<5; j++)
-					Wt[j]+=data[list[i]][j]*data[list[i]][5];
+					Wt[j]+=data[list[i]][j]*data[list[i]][5]*0.5;
 				//printf("update! %d\n", sign);
 				break;
 			}
