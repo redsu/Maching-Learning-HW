@@ -20,13 +20,13 @@ double dot(double data1[], double data2[]){
 }
 int main(){
 	FILE* fin;
-	fin = fopen("hw1_train.dat.txt", "r");
+	fin = fopen("hw1_train_Q18.dat.txt", "r");
 	int n = 0, i = 0;
-	double data[410][10];
+	double data[510][10];
 	
 	srand(time(NULL));
 
-	for(i=0; i<400; i++){
+	for(i=0; i<500; i++){
 		fscanf(fin, "%lf %lf %lf %lf %lf", 
 			   &data[i][0],&data[i][1],&data[i][2],&data[i][3],&data[i][5]);
 		data[i][4] = 1;
@@ -49,7 +49,8 @@ int main(){
 	}*/
 
 	double Wt[10], Wt_1[10];
-	num = rand()%400;
+	num = rand()%500;
+	//num = 0;
 	for(i=0; i<4; i++)
 		Wt[i] = data[num][i];
 	Wt[4] = 0;
@@ -60,23 +61,23 @@ int main(){
 	int    sign = 0;
 	int tmp;
 	printf("check1\n");
-	for(i=0; i<400; i++){
+	error = 0;
+	for(i=0; i<500; i++){
 		result = dot(Wt, data[i]);
 		//sign = result > 0 ? 1 : -1;
 		if(result * data[i][5] < 0){
 			error++;
 		}
-
 	}
 	printf("check2\n");
 	while(1){
-		num = rand()%400;
+		num = rand()%500;
 		result = dot(Wt, data[num]);
 		if(result * data[num][5] < 0){
 			for(i=0; i<5; i++)
 		        Wt_1[i] = data[num][i]*data[num][5] + Wt[i];
 			tmp = 0;
-			for(i=0; i<400; i++){
+			for(i=0; i<500; i++){
 				result = dot(Wt_1, data[i]);
 				if(result * data[i][5] < 0)
 					tmp++;
@@ -87,10 +88,11 @@ int main(){
 				error = tmp;
 				for(i=0; i<5; i++)
 					Wt[i] = Wt_1[i];
-				//printf("update! %d\n", times);
+				//times++;
+				printf("update! %d\n", times);
 			}
-			else
-				;//printf("Error %d, num %d\n", error, num);
+			
+			printf("Error %d, tmp %d\n", error, tmp);
 		}
 		times++;
 		if(times==50)
