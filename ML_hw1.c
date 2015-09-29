@@ -33,8 +33,8 @@ int main(){
 		//printf("%lf %lf %lf %lf %lf\n",
         //       data[i][0],data[i][1],data[i][2],data[i][3],data[i][4]);
 	}
-	int list[410], picked[410], num;
-	for(i=0;i<400;i++)
+	int list[410], picked[410], num, error = 0;
+	/*for(i=0;i<400;i++)
 		list[i] = picked[i] = -1;
 
 	i = 0;
@@ -46,38 +46,60 @@ int main(){
 			picked[num] = 0;
 			i++;
 		}
-	}
+	}*/
 
-	double Wt[10];
+	double Wt[10], Wt_1[10];
+	num = rand()%400;
 	for(i=0; i<4; i++)
-		Wt[i] = data[0][i];
+		Wt[i] = data[num][i];
 	Wt[4] = 0;
 	i=0;
 	int j = 0, times = 0;
 	//char end = false;
 	double result = 0;
 	int    sign = 0;
+	int tmp;
+	printf("check1\n");
+	for(i=0; i<400; i++){
+		result = dot(Wt, data[i]);
+		//sign = result > 0 ? 1 : -1;
+		if(result * data[i][5] < 0){
+			error++;
+		}
+
+	}
+	printf("check2\n");
 	while(1){
-		for(i=0; i<400; i++){
-			result = dot(Wt, data[list[i]]);
-			//sign = result > 0 ? 1 : -1;
-			if(result * data[list[i]][5] < 0){
-				for(j=0; j<5; j++)
-					Wt[j]+=data[list[i]][j]*data[list[i]][5]*0.5;
-				//printf("update! %d\n", sign);
+		num = rand()%400;
+		result = dot(Wt, data[num]);
+		if(result * data[num][5] < 0){
+			for(i=0; i<5; i++)
+		        Wt_1[i] = data[num][i]*data[num][5] + Wt[i];
+			tmp = 0;
+			for(i=0; i<400; i++){
+				result = dot(Wt_1, data[i]);
+				if(result * data[i][5] < 0)
+					tmp++;
+			}
+			if(tmp==0)
 				break;
+			if(tmp<error){
+				error = tmp;
+				for(i=0; i<5; i++)
+					Wt[i] = Wt_1[i];
+				//printf("update! %d\n", times);
 			}
 			else
-				;//printf("correct!\n");
+				;//printf("Error %d, num %d\n", error, num);
 		}
 		times++;
-		if(i==400)
+		if(times==50)
 			break;
-		//printf("%d time(s).\n", i);
 	}
+
 	printf("%d\n", times);
-	//for(i=0; i<5; i++)
-	//	printf("%lf ", Wt[i]);
-	//printf("\n");
+	for(i=0; i<5; i++)
+		printf("%lf ", Wt[i]);
+	printf("\n");
 	return 0;
 }
