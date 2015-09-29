@@ -20,27 +20,27 @@ double dot(double data1[], double data2[]){
 }
 int main(){
 	FILE* fin;
-	fin = fopen("hw1_train.dat.txt", "r");
+	fin = fopen("hw1_train.dat_Q18.txt", "r");
 	int n = 0, i = 0;
-	double data[410][10];
+	double data[510][10];
 	
 	srand(time(NULL));
 
-	for(i=0; i<400; i++){
+	for(i=0; i<500; i++){
 		fscanf(fin, "%lf %lf %lf %lf %lf", 
 			   &data[i][0],&data[i][1],&data[i][2],&data[i][3],&data[i][5]);
 		data[i][4] = 1;
 		//printf("%lf %lf %lf %lf %lf\n",
         //       data[i][0],data[i][1],data[i][2],data[i][3],data[i][4]);
 	}
-	int list[410], picked[410], num;
-	for(i=0;i<400;i++)
+	int list[510], picked[510], num;
+	for(i=0;i<500;i++)
 		list[i] = picked[i] = -1;
 
 	i = 0;
 	
-	while(i<400){
-		num = rand()%400;
+	while(i<500){
+		num = rand()%500;
 		if(picked[num]==-1){
 			list[i] = num;
 			picked[num] = 0;
@@ -58,7 +58,7 @@ int main(){
 	double result = 0;
 	int    sign = 0;
 	while(1){
-		for(i=0; i<400; i++){
+		for(i=0; i<500; i++){
 			result = dot(Wt, data[list[i]]);
 			//sign = result > 0 ? 1 : -1;
 			if(result * data[list[i]][5] < 0){
@@ -71,13 +71,25 @@ int main(){
 				;//printf("correct!\n");
 		}
 		times++;
-		if(i==400)
+		if(times==50)
 			break;
 		//printf("%d time(s).\n", i);
 	}
-	printf("%d\n", times);
-	//for(i=0; i<5; i++)
-	//	printf("%lf ", Wt[i]);
-	//printf("\n");
+	/*printf("%d\n", times);
+	for(i=0; i<5; i++)
+		printf("%lf ", Wt[i]);
+	printf("\n");*/
+	FILE* fin2;
+	fin = fopen("hw1_train_Q18test.dat.txt", "r");
+	int error = 0;
+	for(i=0;i<500;i++){
+		fscanf(fin, "%lf %lf %lf %lf %lf",
+    		&data[i][0],&data[i][1],&data[i][2],&data[i][3],&data[i][5]);
+		data[i][4] = 1;
+		result = dot(Wt,data[i]);
+		if(result*data[i][5]<0)
+			error++;
+	}
+	printf("%d\n", error);
 	return 0;
 }
