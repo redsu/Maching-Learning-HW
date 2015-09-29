@@ -60,7 +60,7 @@ int main(){
 	double result = 0;
 	int    sign = 0;
 	int tmp;
-	printf("check1\n");
+	//printf("check1\n");
 	error = 0;
 	for(i=0; i<500; i++){
 		result = dot(Wt, data[i]);
@@ -69,7 +69,7 @@ int main(){
 			error++;
 		}
 	}
-	printf("check2\n");
+	//printf("check2\n");
 	while(1){
 		num = rand()%500;
 		result = dot(Wt, data[num]);
@@ -89,19 +89,31 @@ int main(){
 				for(i=0; i<5; i++)
 					Wt[i] = Wt_1[i];
 				//times++;
-				printf("update! %d\n", times);
+				//printf("update! %d\n", error);
 			}
 			
-			printf("Error %d, tmp %d\n", error, tmp);
+			//printf("Error %d, tmp %d\n", error, tmp);
 		}
 		times++;
-		if(times==50)
+		if(times==100)
 			break;
 	}
 
-	printf("%d\n", times);
+	/*printf("%d\n", times);
 	for(i=0; i<5; i++)
 		printf("%lf ", Wt[i]);
-	printf("\n");
+	printf("\n");*/
+	FILE* fin2;
+	fin = fopen("hw1_train_Q18test.dat.txt", "r");
+	error = 0;
+	for(i=0;i<500;i++){
+		fscanf(fin, "%lf %lf %lf %lf %lf",
+	        &data[i][0],&data[i][1],&data[i][2],&data[i][3],&data[i][5]);
+		data[i][4] = 1;
+		result = dot(Wt,data[i]);
+		if(result*data[i][5]<0)
+			error++;
+	}
+	printf("%d\n", error);
 	return 0;
 }
