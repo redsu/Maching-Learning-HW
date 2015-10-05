@@ -59,41 +59,72 @@ int main(){
 	int    sign = 1;
 	int	   ok   = 0;
 	int	   round = 1;
-	while(1){
-		//printf("round : %d\n", round);
-		//times = 1;
-		for(i=0; i<400; i++){
+	int    t = 0;
+	int	   cnt[100];
+	for(t=0;t<100;t++)
+		cnt[t] = 0;
+	for(t=0; t<2000; t++){
+		times = 0;
+		ok = 0;
+		for(i=0;i<400;i++)
+        	list[i] = choose[i] = -1;
+	    index = 0;
+
+	    for(i=0; i<400;){
+	        index = rand()%400;
+	        if(choose[index]==-1){
+	            list[i] = index;
+	            choose[index] = 1;
+	            i++;
+	        }
+	    }
+		
+
+		for(i=0; i<4; i++)
+        	Wt[i] = data[list[0]][i];
+		Wt[4] = data[list[0]][4];
+
+		while(1){
+			//printf("round : %d\n", round);
+			//times = 1;
+			for(i=0; i<400; i++){
 //			if(sign)
 //				sign = 0;
 			result = dot(Wt, data[list[i]]);
 			//sign = result > 0 ? 1 : -1;
-			if(result * data[list[i]][5] <= 0){
-//				printf("update! %d Node: %d\n", times, i);
-				for(j=0; j<5; j++){
-					Wt[j]+=data[list[i]][j]*data[list[i]][5];
-//					printf("%lf ", Wt[j]);
+				if(result * data[list[i]][5] <= 0){
+//					printf("update! %d Node: %d\n", times, i);
+					for(j=0; j<5; j++){
+						Wt[j]+=data[list[i]][j]*data[list[i]][5];
+//						printf("%lf ", Wt[j]);
+					}
+//					printf("\n");
+					times++;
+					ok = 0;
+					//break;
 				}
-//				printf("\n");
-				times++;
-				ok = 0;
-				//break;
-			}
-			else{
-//				printf("correct!\n");
-				ok++;
+				else{
+//					printf("correct!\n");
+					ok++;
+				}
+				if(ok==400)
+					break;
 			}
 			if(ok==400)
-				break;
-		}
-		if(ok==400)
 			break;
-		//printf("%d time(s).\n", i);
-		round ++;
+			//printf("%d time(s).\n", i);
+			round ++;
+		}
+		//printf("%d\n", times);
+		cnt[times]++;
 	}
-	printf("%d\n", times);
+	//printf("%d\n", times);
 	//printf("%d time(s).\n", times);
 /*	for(i=0; i<5; i++)
 		printf("%lf ", Wt[i]);
 	printf("\n");
-*/	return 0;
+*/	
+	for(t=0;t<100;t++)
+		printf("%d\n", cnt[t]);
+	return 0;
 }
