@@ -18,8 +18,8 @@ double dot(double data1[], double data2[]){
 int main(){
 	FILE* ftrain;
 	FILE* ftest;
-	ftrain = fopen("hw1_18_train.dat","r");
-	ftest  = fopen("hw1_18_test.dat","r");
+	ftrain = fopen("hw1_18_train.dat","rt");
+	ftest  = fopen("hw1_18_test.dat","rt");
 
 	srand(time(NULL));
 
@@ -29,7 +29,7 @@ int main(){
 	for(i=0; i<500; i++){
 		fscanf(ftrain, "%lf %lf %lf %lf %lf", &trdata[i][0], &trdata[i][1], &trdata[i][2], &trdata[i][3], &trdata[i][5]);
 		trdata[i][4] = 1.0f;
-		//printf("%lf %lf %lf %lf %lf\n", trdata[i][0], trdata[i][1], trdata[i][2], trdata[i][3], trdata[i][5]);
+//		printf("%lf %lf %lf %lf %lf\n", trdata[i][0], trdata[i][1], trdata[i][2], trdata[i][3], trdata[i][5]);
 	}
 	for(i=0; i<500; i++){
 		fscanf(ftest, "%lf %lf %lf %lf %lf", &tdata[i][0], &tdata[i][1], &tdata[i][2], &tdata[i][3], &tdata[i][5]);
@@ -45,9 +45,11 @@ int main(){
 		error = 0;
 		while(1){
 			num = rand()%500;
-			if(trdata[num][5]>0){
+			num = 0;
+//			if(trdata[num][5]>0){
 				for(i=0;i<5;i++){
 					Wt[i] = trdata[num][i];
+					Wt1[i] = trdata[num][i];
 					//printf("%lf ", Wt[i]);
 				}
 				//puts("--Wt");
@@ -55,7 +57,7 @@ int main(){
 					if(dot(Wt, trdata[i])*trdata[i][5]<0)
 						error++;
 				break;
-			}
+//			}
 		}
 		num = 0;
 		while(1){
@@ -65,9 +67,9 @@ int main(){
 			//printf(": %lf\n", result);
 			
 			
-			if(dot(Wt, trdata[num])*trdata[num][5]<0){
+			if(dot(Wt1, trdata[num])*trdata[num][5]<0){
 				for(i=0; i<5; i++){
-					Wt1[i] = Wt[i] + trdata[num][i]*trdata[num][5];
+					Wt1[i] += trdata[num][i]*trdata[num][5];
 					//printf("%lf ", Wt1[i]);
 				}
 				//puts("");
@@ -78,21 +80,18 @@ int main(){
 					if(dot(Wt1, trdata[i])*trdata[i][5]<0)
 						tmp++;
 
-				if(tmp<error){
+				if(tmp<=error){
 					for(i=0;i<5;i++){
 						Wt[i] = Wt1[i];
 					//	printf("%lf ", Wt[i]);
 					}
-					//puts("");
+				//	puts("");
 					error = tmp;
 					//puts("Update");
 				}
-//				printf("%d %d\n ", error, tmp);
+				//printf("%d %d\n ", error, tmp);
 				update++;
 			}
-			num++;
-			if(num==500)
-				num = 0;
 			if(update>=50)
 				break;
 		}
