@@ -36,11 +36,11 @@ int main(){
 		tdata[i][4] = 1.0f;
 	}
 
-	double Wt[6], Wt1[6], result;
+	double Wt[10], Wt1[10], result;
 
 	for(i=0;i<5;i++)
 		Wt[i] = Wt1[i] = 0.0f;
-	for(j=0;j<10;j++){
+	for(j=0;j<2000;j++){
 		update = 0;
 		error = 0;
 		while(1){
@@ -57,8 +57,10 @@ int main(){
 				break;
 			}
 		}
+		num = 0;
 		while(1){
 			num = rand()%500;
+//			printf("%d\n", num);
 			//result = dot(Wt, trdata[num]);
 			//printf(": %lf\n", result);
 			
@@ -83,20 +85,23 @@ int main(){
 					}
 					//puts("");
 					error = tmp;
-					puts("Update");
+					//puts("Update");
 				}
-				printf("%d %d\n ", error, tmp);
+//				printf("%d %d\n ", error, tmp);
 				update++;
 			}
+			num++;
+			if(num==500)
+				num = 0;
 			if(update>=50)
 				break;
 		}
 
-		for(i=0; i<5; i++)
-			printf("%lf ", Wt[i]);
+//		for(i=0; i<5; i++)
+//			printf("%lf ", Wt[i]);
 		
-		printf("%d", error);
-		puts("");
+//		printf("%d", error);
+//		puts("");
 		error = 0;
 		for(i=0;i<500;i++){
 			if(dot(Wt, tdata[i])*tdata[i][5]<0)
