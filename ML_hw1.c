@@ -64,7 +64,7 @@ int main(){
 	for(t=0;t<100;t++)
 		cnt[t] = 0;
 	for(t=0; t<2000; t++){
-		times = 0;
+		times = 1;
 		ok = 0;
 		for(i=0;i<400;i++)
         	list[i] = choose[i] = -1;
