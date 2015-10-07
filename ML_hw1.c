@@ -31,9 +31,9 @@ int main(){
 	}
       
 	double Wt[10];
-	for(i=0; i<4; i++)
+	for(i=0; i<5; i++)
 		Wt[i] = data[0][i];
-	Wt[4] = 1;
+	//Wt[4] = 1;
 	i=0;
 	int j = 0, times = 1;
 	//char end = false;
