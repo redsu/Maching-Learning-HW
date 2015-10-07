@@ -18,8 +18,8 @@ double dot(double data1[], double data2[]){
 int main(){
 	FILE* ftrain;
 	FILE* ftest;
-	ftrain = fopen("hw1_18_train.txt","r");
-	ftest  = fopen("hw1_18_test.txt","r");
+	ftrain = fopen("hw1_18_train.dat","r");
+	ftest  = fopen("hw1_18_test.dat","r");
 
 	srand(time(NULL));
 
