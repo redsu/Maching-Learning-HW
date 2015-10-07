@@ -10,13 +10,13 @@ double dot(double data1[], double data2[]){
 		result += data1[i]*data2[i];
 		//printf("%lf\n", result);
 	}
-	/*if(result>-1)
-		return 1;
+	if(result>0)
+		return 1.0f;
 	else
-		return -1;
-	*/
+		return -1.0f;
+	
 	//printf("%lf\n", result);
-	return result;
+	//return result;
 }
 int main(){
 	FILE* fin;
