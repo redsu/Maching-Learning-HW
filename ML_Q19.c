@@ -65,22 +65,22 @@ int main(){
 			
 			if(dot(Wt, trdata[num])*trdata[num][5]<0){
 				for(i=0; i<5; i++){
-					Wt1[i] = Wt[i] + trdata[num][i]*trdata[num][5];
+					Wt[i] = Wt[i] + trdata[num][i]*trdata[num][5];
 					//printf("%lf ", Wt1[i]);
 				}
 				//puts("");
 
 				tmp = 0;
 
-				for(i=0; i<500; i++)
-					if(dot(Wt1, trdata[i])*trdata[i][5]<0)
-						tmp++;
+				//for(i=0; i<500; i++)
+				//	if(dot(Wt1, trdata[i])*trdata[i][5]<0)
+				//		tmp++;
 
 				//if(tmp<error){
-					for(i=0;i<5;i++){
-						Wt[i] = Wt1[i];
+				//	for(i=0;i<5;i++){
+				//		Wt[i] = Wt1[i];
 					//	printf("%lf ", Wt[i]);
-					}
+				//	}
 					//puts("");
 					error = tmp;
 					//puts("Update");
@@ -88,7 +88,7 @@ int main(){
 				//printf("%d %d\n ", error, tmp);
 				update++;
 			}
-			if(update>=50)
+			if(update>50)
 				break;
 		}
 
