@@ -60,7 +60,7 @@ int main(){
 	int	   ok   = 0;
 	int	   round = 1;
 	int    t = 0;
-	int	   cnt[100];
+	int	   cnt[100000];
 	for(t=0;t<100;t++)
 		cnt[t] = 0;
 	for(t=0; t<2000; t++){
@@ -95,7 +95,7 @@ int main(){
 				if(result * data[list[i]][5] <= 0){
 //					printf("update! %d Node: %d\n", times, i);
 					for(j=0; j<5; j++){
-						Wt[j]+=data[list[i]][j]*data[list[i]][5]*0.5;
+						Wt[j]+=data[list[i]][j]*data[list[i]][5]*0.05;
 //						printf("%lf ", Wt[j]);
 					}
 //					printf("\n");
@@ -103,15 +103,13 @@ int main(){
 					ok = 0;
 					//break;
 				}
-				else{
-//					printf("correct!\n");
-					ok++;
-				}
-				if(ok==400)
+				if(i==399){
+					ok = 1;
 					break;
+				}
 			}
-			if(ok==400)
-			break;
+			if(ok)
+				break;
 			//printf("%d time(s).\n", i);
 			round ++;
 		}
