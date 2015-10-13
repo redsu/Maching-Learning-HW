@@ -10,13 +10,13 @@ double dot(double data1[], double data2[]){
 		result += data1[i]*data2[i];
 		//printf("%lf\n", result);
 	}
-	/*if(result>-1)
+	if(result>0)
 		return 1;
 	else
 		return -1;
-	*/
+	
 	//printf("%lf\n", result);
-	return result;
+	//return result;
 }
 int main(){
 	FILE* fin;
@@ -60,7 +60,7 @@ int main(){
 	int	   ok   = 0;
 	int	   round = 1;
 	int    t = 0;
-	int	   cnt[100000];
+	int	   cnt[10000];
 	for(t=0;t<100;t++)
 		cnt[t] = 0;
 	for(t=0; t<2000; t++){
@@ -80,13 +80,13 @@ int main(){
 	    }
 		
 
-		for(i=0; i<4; i++)
+		for(i=0; i<5; i++)
         	Wt[i] = data[list[0]][i];
-		Wt[4] = data[list[0]][4];
-
+		ok=0;
 		while(1){
 			//printf("round : %d\n", round);
 			//times = 1;
+			//ok = 0;
 			for(i=0; i<400; i++){
 //			if(sign)
 //				sign = 0;
@@ -95,22 +95,28 @@ int main(){
 				if(result * data[list[i]][5] <= 0){
 //					printf("update! %d Node: %d\n", times, i);
 					for(j=0; j<5; j++){
-						Wt[j]+=data[list[i]][j]*data[list[i]][5]*0.05;
-//						printf("%lf ", Wt[j]);
+						Wt[j]+=data[list[i]][j]*data[list[i]][5]*0.005;
+		//				printf("%lf ", Wt[j]);
 					}
-//					printf("\n");
+		//			printf("\n");
 					times++;
 					ok = 0;
-					//break;
-				}
-				if(i==399){
-					ok = 1;
 					break;
 				}
+				else{
+					ok++;
+					//break;
+				}
+				if(ok==400)
+					break;
 			}
-			if(ok)
+			if(ok==400){
+				//for(j=0; j<5; j++)
+				//	printf("%lf ", Wt[j]);
+				//printf("\n");
 				break;
 			//printf("%d time(s).\n", i);
+			}
 			round ++;
 		}
 		//printf("%d\n", times);
@@ -122,7 +128,7 @@ int main(){
 		printf("%lf ", Wt[i]);
 	printf("\n");
 */	
-	for(t=1;t<100;t++)
+	for(t=1;t<200;t++)
 		printf("%d\n", cnt[t]);
 	return 0;
 }
