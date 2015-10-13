@@ -14,7 +14,7 @@ double dot(double data1[], double data2[]){
 }
 int main(){
 	FILE* fin;
-	fin = fopen("hw1_train.dat.txt", "r");
+	fin = fopen("hw1_15_train.dat", "rt");
 	int n = 0, i = 0;
 	double data[410][10];
 	srand(time(NULL));
