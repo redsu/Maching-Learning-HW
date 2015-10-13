@@ -20,8 +20,8 @@ int main(){
 	srand(time(NULL));
 	for(i=0; i<400; i++){
 		fscanf(fin, "%lf %lf %lf %lf %lf", 
-			   &data[i][0],&data[i][1],&data[i][2],&data[i][3],&data[i][5]);
-		data[i][4] = 1;
+			   &data[i][1],&data[i][2],&data[i][3],&data[i][4],&data[i][5]);
+		data[i][0] = 1;
 	}
       
 	double Wt[10];
@@ -31,9 +31,6 @@ int main(){
 	int list[410], choose[410];
 	int index = 0;
 	
-	for(i=0; i<4; i++)
-        Wt[i] = data[list[0]][i];
-	Wt[4] = data[list[0]][4];
 	int j = 0, update = 1;
 	int	pass = 0;
 	int t = 0;
