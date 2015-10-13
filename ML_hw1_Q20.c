@@ -29,7 +29,6 @@ int main(){
 	for(i=0; i<500; i++){
 		fscanf(ftrain, "%lf %lf %lf %lf %lf", &trdata[i][0], &trdata[i][1], &trdata[i][2], &trdata[i][3], &trdata[i][5]);
 		trdata[i][4] = 1.0f;
-		//printf("%lf %lf %lf %lf %lf\n", trdata[i][0], trdata[i][1], trdata[i][2], trdata[i][3], trdata[i][5]);
 	}
 	for(i=0; i<500; i++){
 		fscanf(ftest, "%lf %lf %lf %lf %lf", &tdata[i][0], &tdata[i][1], &tdata[i][2], &tdata[i][3], &tdata[i][5]);
@@ -37,7 +36,9 @@ int main(){
 	}
 
 	double Wt[6], Wt1[6], result;
-
+	int count[600];
+	for(i=0;i<600;i++)
+		count[i]=0;
 	for(i=0;i<5;i++)
 		Wt[i] = Wt1[i] = 0.0f;
 	for(j=0;j<2000;j++){
@@ -46,11 +47,8 @@ int main(){
 		while(1){
 			num = rand()%500;
 			if(trdata[num][5]>0){
-				for(i=0;i<5;i++){
-					Wt[i] = trdata[num][i];
-					//printf("%lf ", Wt[i]);
-				}
-				//puts("--Wt");
+				for(i=0;i<5;i++)
+					Wt[i] = Wt1[i] = trdata[num][i];
 				for(i=0; i<500; i++)
 					if(dot(Wt, trdata[i])*trdata[i][5]<0)
 						error++;
@@ -59,16 +57,10 @@ int main(){
 		}
 		while(1){
 			num = rand()%500;
-			//result = dot(Wt, trdata[num]);
-			//printf(": %lf\n", result);
 			
-			
-			if(dot(Wt, trdata[num])*trdata[num][5]<0){
-				for(i=0; i<5; i++){
-					Wt1[i] = Wt[i] + trdata[num][i]*trdata[num][5];
-					//printf("%lf ", Wt1[i]);
-				}
-				//puts("");
+			if(dot(Wt1, trdata[num])*trdata[num][5]<0){
+				for(i=0; i<5; i++)
+					Wt1[i] += trdata[num][i]*trdata[num][5];
 
 				tmp = 0;
 
@@ -77,34 +69,26 @@ int main(){
 						tmp++;
 
 				if(tmp<error){
-					for(i=0;i<5;i++){
+					for(i=0;i<5;i++)
 						Wt[i] = Wt1[i];
-					//	printf("%lf ", Wt[i]);
-					}
-					//puts("");
 					error = tmp;
-				//	puts("Update");
 				}
-				//printf("%d %d\n ", error, tmp);
 				update++;
 			}
-			if(update>=100)
+			if(update>=50)
 				break;
 		}
-
-	//	for(i=0; i<5; i++)
-	//		printf("%lf ", Wt[i]);
 		
-	//	printf("%d", error);
-	//	puts("");
 		error = 0;
 		for(i=0;i<500;i++){
 			if(dot(Wt, tdata[i])*tdata[i][5]<0)
 				error++;
 		}
-		//printf("%d\n", error);
-		printf("%lf\n", (double)error/500.0f);
+		//printf("%lf\n", (double)error/500.0f);
+		count[error]++;
 	}
+	for(i=1;i<600;i++)
+		printf("%d\n",count[i]);
 	fclose(ftest);
 	fclose(ftrain);
     return 0;
