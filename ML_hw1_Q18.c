@@ -8,7 +8,6 @@ double dot(double data1[], double data2[]){
 	double result = 0.0;
 	for(i=0;i<5;i++)
 		result += data1[i]*data2[i];
-//	return result;
 	if(result > 0)
 		return 1.0f; 
 	else
@@ -37,6 +36,9 @@ int main(){
 	}
 
 	double Wt[10], Wt1[10], result;
+	int count[600];
+	for(i=0;i<600;i++)
+		count[i] = 0;
 
 	for(i=0;i<5;i++)
 		Wt[i] = Wt1[i] = 0.0f;
@@ -106,9 +108,12 @@ int main(){
 			if(dot(Wt, tdata[i])*tdata[i][5]<0)
 				error++;
 		}
+		count[error]++;
 		//printf("%d\n", error);
-		printf("%lf\n", (double)error/500.0f);
+		//printf("%lf\n", (double)error/500.0f);
 	}
+	for(i=0;i<600;i++)
+		printf("%d\n", count[i]);
 	fclose(ftest);
 	fclose(ftrain);
     return 0;
