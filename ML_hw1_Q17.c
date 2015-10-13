@@ -9,8 +9,8 @@ double dot(double data1[], double data2[]){
 	for(i=0; i<5; i++)
 		result += data1[i]*data2[i];
 	if(result>0)
-		return 1;
-	return -1;
+		return 1.0f;
+	return -1.0f;
 }
 int main(){
 	FILE* fin;
@@ -25,8 +25,6 @@ int main(){
 	}
       
 	double Wt[10];
-	for(i=0; i<5; i++)
-		Wt[i] = data[0][i];
 	
 	int list[410], choose[410];
 	int index = 0;
@@ -60,10 +58,9 @@ int main(){
 			for(i=0; i<400; i++){
 				if(dot(Wt, data[list[i]]) * data[list[i]][5] <= 0){
 					for(j=0; j<5; j++)
-						Wt[j] += data[list[i]][j]*data[list[i]][5];
+						Wt[j] += data[list[i]][j]*data[list[i]][5]*0.5;
 					update++;
 					pass = 0;
-					break;
 				}
 				else
 					pass++;
